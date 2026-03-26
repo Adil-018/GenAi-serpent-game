@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "VT323", monospace;
+}
+
+.glitch-text {
+  position: relative;
+  color: #00ffff;
+  text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 44px, 0); transform: translate(0); }
+  10% { clip: rect(80px, 9999px, 12px, 0); transform: translate(-2px, 2px); }
+  20% { clip: rect(33px, 9999px, 88px, 0); transform: translate(2px, -2px); }
+  30% { clip: rect(5px, 9999px, 66px, 0); transform: translate(-2px, 2px); }
+  40% { clip: rect(90px, 9999px, 22px, 0); transform: translate(2px, -2px); }
+  50% { clip: rect(44px, 9999px, 55px, 0); transform: translate(-2px, 2px); }
+  60% { clip: rect(10px, 9999px, 44px, 0); transform: translate(2px, -2px); }
+  70% { clip: rect(80px, 9999px, 12px, 0); transform: translate(-2px, 2px); }
+  80% { clip: rect(33px, 9999px, 88px, 0); transform: translate(2px, -2px); }
+  90% { clip: rect(5px, 9999px, 66px, 0); transform: translate(-2px, 2px); }
+  100% { clip: rect(90px, 9999px, 22px, 0); transform: translate(0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); transform: translate(0); }
+  10% { clip: rect(12px, 9999px, 55px, 0); transform: translate(2px, -2px); }
+  20% { clip: rect(88px, 9999px, 22px, 0); transform: translate(-2px, 2px); }
+  30% { clip: rect(33px, 9999px, 77px, 0); transform: translate(2px, -2px); }
+  40% { clip: rect(5px, 9999px, 44px, 0); transform: translate(-2px, 2px); }
+  50% { clip: rect(99px, 9999px, 11px, 0); transform: translate(2px, -2px); }
+  60% { clip: rect(65px, 9999px, 100px, 0); transform: translate(-2px, 2px); }
+  70% { clip: rect(12px, 9999px, 55px, 0); transform: translate(2px, -2px); }
+  80% { clip: rect(88px, 9999px, 22px, 0); transform: translate(-2px, 2px); }
+  90% { clip: rect(33px, 9999px, 77px, 0); transform: translate(2px, -2px); }
+  100% { clip: rect(5px, 9999px, 44px, 0); transform: translate(0); }
+}
+
+.scanlines {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
+  background-size: 100% 4px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+  animation: scanline-scroll 10s linear infinite;
+}
+
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+.static-noise {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 49;
+  animation: noise-anim 0.1s infinite;
+}
+
+@keyframes noise-anim {
+  0% { transform: translate(0,0); }
+  10% { transform: translate(-5%,-5%); }
+  20% { transform: translate(-10%,5%); }
+  30% { transform: translate(5%,-10%); }
+  40% { transform: translate(-5%,15%); }
+  50% { transform: translate(-10%,5%); }
+  60% { transform: translate(15%,0); }
+  70% { transform: translate(0,15%); }
+  80% { transform: translate(3%,35%); }
+  90% { transform: translate(-10%,10%); }
+  100% { transform: translate(0,0); }
+}
+
+.screen-tear {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 51;
+  background: transparent;
+  animation: tear-anim 5s infinite;
+}
+
+@keyframes tear-anim {
+  0%, 95% { transform: translateX(0); opacity: 0; }
+  96% { transform: translateX(10px); opacity: 0.5; background: rgba(0, 255, 255, 0.1); clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%); }
+  97% { transform: translateX(-10px); opacity: 0.5; background: rgba(255, 0, 255, 0.1); clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
+  98% { transform: translateX(5px); opacity: 0.5; background: rgba(0, 255, 255, 0.1); clip-path: polygon(0 40%, 100% 40%, 100% 45%, 0 45%); }
+  99%, 100% { transform: translateX(0); opacity: 0; }
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.95; }
+  50% { opacity: 1; }
+  100% { opacity: 0.95; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(1px, 1px) rotate(0.5deg); }
+  50% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+  75% { transform: translate(-1px, 1px) rotate(0deg); }
+}
